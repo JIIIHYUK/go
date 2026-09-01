@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="theme-color" content="#0e1013" />
+    <meta
+      name="description"
+      content="농구 코트 위에 선수와 움직임을 겹쳐 그리는 간편한 전술 보드"
+    />
+    <meta property="og:title" content="PLAYBOARD — 농구 전술 보드" />
+    <meta
+      property="og:description"
+      content="농구 코트 위에 선수와 움직임을 겹쳐 그리는 간편한 전술 보드"
+    />
+    <meta property="og:image" content="assets/og.png" />
+    <link rel="icon" href="assets/favicon.svg" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>PLAYBOARD — 농구 전술 보드</title>
+  </head>
+  <body>
+    <main class="app-shell">
+      <header class="topbar">
+        <div class="brand-block">
+          <div class="brand-mark" aria-hidden="true">PB</div>
+          <div>
+            <p class="eyebrow">BASKETBALL TACTICS</p>
+            <h1>PLAYBOARD</h1>
+          </div>
+        </div>
+
+        <div class="reset-actions" aria-label="초기화 도구">
+          <button id="reset-current" type="button" class="reset-button">
+            <span aria-hidden="true">↺</span>
+            현재 초기화
+          </button>
+          <button
+            id="reset-overlaps"
+            type="button"
+            class="reset-button reset-button-muted"
+          >
+            <span aria-hidden="true">◎</span>
+            중첩 초기화
+          </button>
+        </div>
+
+        <div class="session-badge" aria-label="현재 표시 개수">
+          <span class="live-dot" aria-hidden="true"></span>
+          <span id="session-count">현재 0 · 중첩 0</span>
+        </div>
+      </header>
+
+      <section class="workspace">
+        <aside class="tool-rail" aria-label="코트 표시 도구">
+          <p class="tool-heading">MODE</p>
+          <button id="mode-move" type="button" class="tool-button is-active" aria-pressed="true">
+            <span class="tool-symbol move-symbol" aria-hidden="true">✥</span>
+            <span>공 이동</span>
+          </button>
+          <button id="mode-arrow" type="button" class="tool-button" aria-pressed="false">
+            <span class="tool-symbol arrow-symbol" aria-hidden="true">↗</span>
+            <span>화살표</span>
+          </button>
+
+          <div class="tool-divider"></div>
+          <p class="tool-heading">ACTION</p>
+          <button id="overlap-current" type="button" class="tool-button overlap-button">
+            <span class="tool-symbol overlap-symbol" aria-hidden="true">◉</span>
+            <span>중첩</span>
+          </button>
+
+          <div class="rail-help">
+            <span aria-hidden="true">?</span>
+            <p>공은 끌어서 배치·이동, 화살표는 코트에서 드래그</p>
+          </div>
+        </aside>
+
+        <div class="court-area">
+          <div class="court-heading-row">
+            <div>
+              <p class="court-kicker">TACTIC 01</p>
+              <h2>새 전술 보드</h2>
+            </div>
+            <div class="active-tool-pill">
+              <span id="active-tool-icon" class="active-tool-icon active-move" aria-hidden="true"></span>
+              <span id="active-tool-label">공 이동 모드</span>
+            </div>
+          </div>
+
+          <section class="player-dock" aria-label="드래그 가능한 선수 대기석">
+            <div class="dock-title">
+              <span class="dock-grip" aria-hidden="true">•••</span>
+              <div>
+                <p>PLAYER BENCH</p>
+                <strong>공을 끌어 코트에 배치하세요</strong>
+              </div>
+            </div>
+            <div id="roster-groups" class="roster-groups"></div>
+          </section>
+
+          <div class="court-frame">
+            <div
+              id="court"
+              class="court move-cursor"
+              role="application"
+              aria-label="공 이동 모드의 농구 전술 코트"
+              tabindex="0"
+            >
+              <img src="assets/basketball-court.png" alt="농구 코트 전술판" draggable="false" />
+              <div id="overlapped-layer" class="marker-layer overlapped-layer" aria-label="중첩된 표시"></div>
+              <div id="current-layer" class="marker-layer current-layer" aria-label="현재 표시"></div>
+            </div>
+          </div>
+
+          <div class="court-footer">
+            <p class="notice" role="status" aria-live="polite">
+              <span aria-hidden="true">●</span>
+              <span id="notice-text">대기석의 공을 끌어 코트에 배치하세요.</span>
+            </p>
+            <p class="opacity-note">
+              중첩된 표시는 횟수와 관계없이 항상 <strong>50%</strong>
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <span id="drag-ghost" class="drag-ghost hidden" aria-hidden="true"></span>
+    </main>
+    <script src="app.js" defer></script>
+  </body>
+</html>
